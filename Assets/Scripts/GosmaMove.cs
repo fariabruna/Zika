@@ -11,22 +11,27 @@ public class GosmaMove : MonoBehaviour{
     public float espera;
 
     private GameObject player;
-    private bool pontuou;
+    private bool pontuou = false;
 
-    void Start(){ 
+    void Start(){
         StartCoroutine(Move(max));
+    }
+
+    private void Awake(){
         player = GameObject.Find("Player");
     }
+
 
     void Update(){
         Vector3 velocidadeVetorial = Vector3.left * velocidadeHorizontal;
         transform.position = transform.position + velocidadeVetorial * Time.deltaTime;
-        if (GameController.instancia.estado == Estado.Jogando){
-            if (!pontuou && transform.position.x < player.gameObject.transform.position.x){
+        if (!pontuou && GameController.instancia.estado == Estado.Jogando){
+            if (transform.position.x < player.transform.position.x){
+                GameController.instancia.incrementarPontos(1);
                 pontuou = true;
-                GameController.instancia.acrescentarPontos(1);
             }
         }
+
     }
 
     IEnumerator Move(float destino){

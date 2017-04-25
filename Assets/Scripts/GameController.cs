@@ -9,12 +9,17 @@ public class GameController : MonoBehaviour{
     public GameObject menuCamera;
     public GameObject menuPanel;
 
+    public GameObject gameOverPanel;
+    public GameObject pontosPanel;
+
+
     public float espera;
     public GameObject obstaculo;
     public float tempoDestruicao;
 
     private int pontos;
     public Text txtPontos;
+    public Text txtMaiorPontuacao;
 
     public static GameController instancia = null;
 
@@ -31,6 +36,12 @@ public class GameController : MonoBehaviour{
 
     void Start(){
         estado = Estado.AguardoComecar;
+        PlayerPrefs.SetInt("HighScore", 0);
+        menuCamera.SetActive(true);
+        menuPanel.SetActive(true);
+        gameOverPanel.SetActive(false);
+        pontosPanel.SetActive(false);
+
     }
 
     IEnumerator GerarObstaculos(){
@@ -47,12 +58,27 @@ public class GameController : MonoBehaviour{
         estado = Estado.Jogando;
         menuCamera.SetActive(false);
         menuPanel.SetActive(false);
+        pontosPanel.SetActive(true);
         atualizarPontos(0);
         StartCoroutine(GerarObstaculos());
     }
 
     public void PlayerMorreu(){
         estado = Estado.GameOver;
+        if (pontos > PlayerPrefs.GetInt("HighScore")){
+            PlayerPrefs.SetInt("HighScore", pontos);
+            txtMaiorPontuacao.text = "" + pontos;
+        }
+        gameOverPanel.SetActive(true);
+    }
+
+    public void PlayerVoltou(){
+        estado = Estado.AguardoComecar;
+        menuCamera.SetActive(true);
+        menuPanel.SetActive(true);
+        gameOverPanel.SetActive(false);
+        pontosPanel.SetActive(false);
+        GameObject.Find("meninoassutado").GetComponent<PlayerController>().recomecar();
     }
 
     private void atualizarPontos (int x){

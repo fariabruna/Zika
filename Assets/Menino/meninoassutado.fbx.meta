@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 3dca7a098367e5b4b9e02ed04c82374f
-timeCreated: 1490739851
+timeCreated: 1493729951
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
@@ -361,7 +361,7 @@ ModelImporter:
       name: correndo
       takeName: Armature|acoes
       firstFrame: 215
-      lastFrame: 242
+      lastFrame: 243
       wrapMode: 0
       orientationOffsetY: 0
       level: 0

@@ -42,7 +42,7 @@ public class PlayerController : MonoBehaviour {
                 pulando = true;
             }
         }
-        if (GameController.instancia.estado == Estado.AguardoComecar){
+        if (GameController.instancia.estado == Estado.AguardoComecar)       {
             anim.Play("correndo");
         }
     }
